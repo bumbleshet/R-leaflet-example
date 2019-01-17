@@ -1,0 +1,41 @@
+---
+### Information of Project Details
+  title: "Leaflet"
+  author: "Sidney F. Guaro"
+  date: "January 17, 2019"
+  output: html_document
+  always_allow_html: yes
+---
+
+## Introduction
+Leaflet is one of the most popular Javascript libraries for
+creating interactive maps. The leaflet R package allows you
+to create your own leaflet maps without needing to know any
+Javascript!
+
+### Installation
+```{r, eval=TRUE}
+#install.packages("leaflet")
+library(leaflet)
+```
+## My first leaflet map
+```{r, echo=TRUE}
+library(leaflet)
+## Latitude and Longitude of South Cotabato map where pineapple is planted
+bmb <- data.frame( lat = c(9.784344, 8.695652, 7.122431, 6.868016, 6.929132)
+, lng = c(126.1673, 123.393357, 125.718684, 122.063642, 126.280525) )
+## Beach Popups
+beachPopups <- c(
+"<a href='https://www.tripadvisor.com.ph/Attraction_Review-g674645-d1943925-Reviews-Dako_Island-Siargao_Island_Surigao_del_Norte_Province_Mindanao.html/'>Dako Island</a>",
+"<a href='http://www.ilink.ph/dakak-resort/'>Dakak Beach Resort</a>",
+"<a href='http://www.samal-island.com/'>Samal Island</a>",
+"<a href='https://jontotheworld.com/sta-cruz-island-pink-beach-zamboanga-city/'>Sta. Cruz Island</a>",
+"<a href='https://www.philippinebeaches.org/quick-guide-dahican-beach-mati-davao-oriental/'>Dahican Beach</a>"
+)
+beachIcon <- makeIcon("https://image.flaticon.com/icons/svg/120/120659.svg", 30, 30)
+mp <- bmb %>%
+leaflet() %>%
+addTiles() %>% setView(lng = 126.1673, lat = 9.784344, zoom = 10) %>%
+addMarkers(icon=beachIcon, popup = beachPopups)
+mp
+```
